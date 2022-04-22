@@ -16,7 +16,7 @@ phases:
            - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
            - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/ 
            - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
-           - export SONAR_SCANNER_OPTS="-server"- python --version
+           - export SONAR_SCANNER_OPTS="-server"
     build:
         commands:  
             - sonar-scanner -Dsonar.login=666ec4f2b051e5709c099990ae835dcf545dd0d7 -Dsonar.organization=abhishekpatwanci  -Dsonar.projectKey=AbhishekpatwaNCI_x21122229-Hotel-Booking -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io
