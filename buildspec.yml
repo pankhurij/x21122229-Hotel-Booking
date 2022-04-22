@@ -1,0 +1,28 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+            python: 3.7
+        commands:
+            - pip install --upgrade pip
+            - pip install -r requirements.txt
+            - echo "Running all unit tests"
+            - pylint -j 0  --disable=W,C,E,R $CODEBUILD_SRC_DIR/*.py
+            - pylint -j 0  --disable=W,C,E,R $CODEBUILD_SRC_DIR/hotel/*.py
+    pre_build:
+        commands:
+            - yum update -y
+            - yum install -y jq
+            - wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+            - tar xzf apache-maven-3.5.4-bin.tar.gz
+            - ln -s apache-maven-3.5.4 maven
+            - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+            - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+            - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
+            - python --version
+    build:
+        commands:  
+            - sonar-scanner -Dsonar.branch.name=${CODEBUILD_WEBHOOK_HEAD_REF} -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/coverage/jacoco.xml
+artifacts:
+    files:
+        - '**/*'

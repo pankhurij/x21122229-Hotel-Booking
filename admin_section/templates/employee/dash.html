@@ -1,0 +1,45 @@
+{% extends 'employee/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for hotel in hotels %}
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+          <div class="card-style-1 mb-30">
+            <div class="card-meta">
+              
+              <div class="text">
+                <p class="text-sm text-medium">
+                  Location : <a href="#0">{{hotel.location}}</a>
+                </p>
+              </div>
+            </div>
+            <div class="card-image">
+              <a href="#0">
+                <img
+                  src="{{hotel.image1.url}}"
+                  alt=""
+                />
+              </a>
+            </div>
+            <div class="card-content">
+              <h4><a href="{% url 'update-hotel' hotel.id %}"> {{hotel.name}} </a></h4>
+              <p>
+                {{hotel.description}}
+              </p>
+            </div>
+          </div>
+          <!-- end card-->
+        </div>
+        {% endfor %}
+        <!-- end col -->
+      
+        <!-- end col -->
+  
+        <!-- end col -->
+      </div>
+</div>
+
+
+
+{% endblock content %}

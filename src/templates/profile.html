@@ -1,0 +1,72 @@
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static  'web/assets/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/LineIcons.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/quill/bubble.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/quill/snow.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/fullcalendar.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/morris.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/vanilla-dataTables.min.css' %}" />
+<link rel="stylesheet" href="{% static  'web/assets/css/main.css' %}" />
+
+
+<div class="card-style mb-30">
+    <div
+      class="
+        title
+        d-flex
+        align-items-center
+        justify-content-between
+        flex-wrap
+      "
+    >
+      <h6 class="mb-20">Booked Hotels</h6>
+      <a
+        href="/"
+        class="main-btn btn-sm primary-btn btn-hover mb-20"
+      >
+        <i class="lni lni-plus mr-10"></i>
+        Back To Home
+      </a>
+    </div>
+    <div class="row">
+       {% for b in bookings %} 
+      <div class="col-md-6 col-lg-12 col-xl-6">
+        <div class="card-style-6 mb-30">
+          <div class="card-meta mb-25">
+            <div class="d-flex align-items-center flex-wrap mb-10">
+              <h5 class="text-bold mr-20">
+                <a href="#0" class="title">{{b.hotel_id.location}}</a>
+              </h5>
+              <span>Booked at {{b.booking_date}}</span>
+            </div>
+            <p>{{b.hotel_id.name}}</p>
+          </div>
+          <div class="card-image">
+            <a href="#0">
+              <img
+                src="{{b.hotel_id.image1.url}}"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="card-action">
+            <div class="action mr-20">
+              
+              <a href="#0">Check IN date : {{b.check_in}} </a>
+            </div>
+            <div class="action">
+             
+              <a href="#0">Event date : {{b.event_date}} </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    
+ 
+ 
+   
+    </div>
+  </div>
