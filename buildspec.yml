@@ -11,18 +11,15 @@ phases:
             - pylint -j 0  --disable=W,C,E,R $CODEBUILD_SRC_DIR/hotel/*.py
     pre_build:
         commands:
-            - yum update -y
-            - yum install -y jq
-            - wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-            - tar xzf apache-maven-3.5.4-bin.tar.gz
-            - ln -s apache-maven-3.5.4 maven
-            - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-            - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
-            - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
-            - python --version
+           - export SONAR_SCANNER_VERSION=4.7.0.2747
+           - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+           - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+           - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/ 
+           - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+           - export SONAR_SCANNER_OPTS="-server"- python --version
     build:
         commands:  
-            - sonar-scanner -Dsonar.branch.name=${CODEBUILD_WEBHOOK_HEAD_REF} -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/coverage/jacoco.xml
+            - sonar-scanner -Dsonar.login=666ec4f2b051e5709c099990ae835dcf545dd0d7 -Dsonar.organization=abhishekpatwanci  -Dsonar.projectKey=AbhishekpatwaNCI_x21122229-Hotel-Booking -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io
 artifacts:
     files:
         - '**/*'
