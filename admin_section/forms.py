@@ -1,5 +1,4 @@
 from django import forms
-from src.models import *
 
 
 class HotelForms(forms.ModelForm):
